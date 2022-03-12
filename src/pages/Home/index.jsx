@@ -1,8 +1,10 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Select, DatePicker } from 'antd';
+import _ from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProjects } from '../../slices/projectSlice';
 import { fetchGateways } from '../../slices/gatewaySlice';
+import { generateReport } from '../../slices/reportSlice';
 import Navbar from '../../components/Navbar';
 import Sidebar from '../../components/Sidebar';
 import Empty from '../../components/EmptyState';
@@ -14,12 +16,38 @@ const { Option } = Select;
 const Home = () => {
   const { projectList } = useSelector((state) => state.projects);
   const { gatewayList } = useSelector((state) => state.gateways);
+  const { report } = useSelector((state) => state.reports);
+
+  const [projectId, setProjectId] = useState('');
+  const [gatewayId, setGatewayId] = useState('');
+  const [dateFrom, setDateFrom] = useState('');
+  const [dateTo, setDateTo] = useState('');
+
+  // const sortReportByProject = () => {
+  //   const sorted = {};
+  //   _.each(report, (item) => {
+  //     sorted[item.projectId] = sorted[item.projectId] || [];
+  //     sorted[item.projectId].push(item);
+  //   });
+  // };
 
   const dispatch = useDispatch();
+
+  const handleSubmit = () => {
+    dispatch(
+      generateReport({
+        projectId,
+        gatewayId,
+        from: dateFrom,
+        to: dateTo,
+      })
+    );
+  };
 
   useEffect(() => {
     dispatch(fetchProjects());
     dispatch(fetchGateways());
+    // sortReportByProject();
   }, []);
 
   return (
@@ -38,10 +66,11 @@ const Home = () => {
             <div className="flex flex-1 justify-end flex-col gap-y-4 gap-x-8 sm:flex-row w-full items-stretch">
               <div className="w-full sm:w-32">
                 <Select
+                  onChange={(value) => setProjectId(value)}
                   style={{ width: '100%' }}
                   dropdownClassName="bg-accent-1 text-white"
                 >
-                  <Option>All Projects</Option>
+                  <Option value="">All Projects</Option>
                   {projectList.map((project) => (
                     <Option key={project.projectId} value={project.projectId}>
                       {project.name}
@@ -51,6 +80,7 @@ const Home = () => {
               </div>
               <div className="w-full sm:w-32">
                 <Select
+                  onChange={(value) => setGatewayId(value)}
                   style={{ width: '100%' }}
                   dropdownClassName="bg-accent-1 text-white"
                 >
@@ -64,12 +94,14 @@ const Home = () => {
               </div>
               <div className="w-full sm:w-32">
                 <DatePicker
+                  onChange={(date) => setDateFrom(date)}
                   dropdownClassName="bg-accent-1 text-white"
                   className="bg-accent-1 border-0 text-white placeholder-white rounded-[5px]"
                 />
               </div>
               <div className="w-full sm:w-32">
                 <DatePicker
+                  onChange={(date) => setDateTo(date)}
                   dropdownClassName="bg-accent-1 text-white"
                   className="bg-accent-1 border-0 text-white placeholder-white rounded-[5px]"
                 />
@@ -77,6 +109,7 @@ const Home = () => {
               <div className="w-full sm:w-32">
                 <button
                   type="button"
+                  onClick={handleSubmit}
                   className="bg-primary-2 h-8 w-[118px] text-white rounded-md"
                 >
                   Generate report
@@ -98,7 +131,12 @@ const Home = () => {
             </div>
             {/* <Empty /> */}
             {projectList.map((project) => (
-              <Accordion title={project.name}>
+              <Accordion
+                title={project.name}
+                price={report
+                  .filter((item) => item.projectId === project.projectId)
+                  .reduce((prev, cur) => Math.floor(prev + cur.amount), 0)}
+              >
                 <div className="bg-primary-3 p-4">
                   <table className="table-auto w-full overflow-x-scroll block sm:table">
                     <thead className="bg-white rounded-md hidden sm:table-header-group">
@@ -110,20 +148,26 @@ const Home = () => {
                       </tr>
                     </thead>
                     <tbody className="block sm:table-row-group w-full">
-                      <tr className="block sm:table-row w-full mb-0 sm:mb-[15px]">
-                        <td
-                          className="block py-2 sm:table-cell w-full 
+                      {report
+                        .filter((item) => item.projectId === project.projectId)
+                        .map((transaction) => (
+                          <tr
+                            key={transaction.transactionId}
+                            className="block sm:table-row w-full mb-0 sm:mb-[15px]"
+                          >
+                            <td
+                              className="block py-2 sm:table-cell w-full 
                       sm:w-auto pl-[50%] sm:pl-2 text-right 
                       sm:text-left relative sm:before:content-[''] 
                       before:content-[attr(data-label)] before:absolute 
                       before:left-0 before:w-1/2 before:text-sm text-primary-1 
                       before:font-semibold before:text-left"
-                          data-label="Date"
-                        >
-                          01/21/2021
-                        </td>
-                        <td
-                          className="block py-2 sm:table-cell 
+                              data-label="Date"
+                            >
+                              {transaction.created}
+                            </td>
+                            <td
+                              className="block py-2 sm:table-cell 
                       w-full sm:w-auto pl-[50%] sm:pl-2 
                       text-right sm:text-left relative 
                       sm:before:content-[''] 
@@ -131,12 +175,12 @@ const Home = () => {
                       before:absolute before:left-0 before:w-1/2 
                       before:text-sm text-primary-1 
                       before:font-semibold before:text-left"
-                          data-label="Gateway"
-                        >
-                          Gateway 1
-                        </td>
-                        <td
-                          className="block py-2 sm:table-cell 
+                              data-label="Gateway"
+                            >
+                              {transaction.gatewayId}
+                            </td>
+                            <td
+                              className="block py-2 sm:table-cell 
                       w-full sm:w-auto pl-[50%] 
                       sm:pl-2 text-right sm:text-left 
                       relative sm:before:content-[''] 
@@ -145,75 +189,24 @@ const Home = () => {
                       before:w-1/2 before:text-sm 
                       text-primary-1 before:font-semibold 
                       before:text-left"
-                          data-label="Transaction ID"
-                        >
-                          a732b
-                        </td>
-                        <td
-                          className="block py-2 sm:table-cell w-full 
+                              data-label="Transaction ID"
+                            >
+                              {transaction.paymentId}
+                            </td>
+                            <td
+                              className="block py-2 sm:table-cell w-full 
                       sm:w-auto pl-[50%] sm:pl-2 text-right 
                       sm:text-left relative sm:before:content-[''] 
                       before:content-[attr(data-label)] 
                       before:absolute before:left-0 before:w-1/2 
                       before:text-sm text-primary-1 
                       before:font-semibold before:text-left"
-                          data-label="Amount"
-                        >
-                          3964 USD
-                        </td>
-                      </tr>
-                      <tr className="block sm:table-row w-full mb-0 sm:mb-[15px]">
-                        <td
-                          className="block py-2 sm:table-cell w-full 
-                      sm:w-auto pl-[50%] sm:pl-2 text-right 
-                      sm:text-left relative sm:before:content-[''] 
-                      before:content-[attr(data-label)] before:absolute 
-                      before:left-0 before:w-1/2 before:text-sm text-primary-1 
-                      before:font-semibold before:text-left"
-                          data-label="Date"
-                        >
-                          01/21/2021
-                        </td>
-                        <td
-                          className="block py-2 sm:table-cell 
-                      w-full sm:w-auto pl-[50%] sm:pl-2 
-                      text-right sm:text-left relative 
-                      sm:before:content-[''] 
-                      before:content-[attr(data-label)] 
-                      before:absolute before:left-0 before:w-1/2 
-                      before:text-sm text-primary-1 
-                      before:font-semibold before:text-left"
-                          data-label="Gateway"
-                        >
-                          Gateway 1
-                        </td>
-                        <td
-                          className="block py-2 sm:table-cell 
-                      w-full sm:w-auto pl-[50%] 
-                      sm:pl-2 text-right sm:text-left 
-                      relative sm:before:content-[''] 
-                      before:content-[attr(data-label)] 
-                      before:absolute before:left-0 
-                      before:w-1/2 before:text-sm 
-                      text-primary-1 before:font-semibold 
-                      before:text-left"
-                          data-label="Transaction ID"
-                        >
-                          a732b
-                        </td>
-                        <td
-                          className="block py-2 sm:table-cell w-full 
-                      sm:w-auto pl-[50%] sm:pl-2 text-right 
-                      sm:text-left relative sm:before:content-[''] 
-                      before:content-[attr(data-label)] 
-                      before:absolute before:left-0 before:w-1/2 
-                      before:text-sm text-primary-1 
-                      before:font-semibold before:text-left"
-                          data-label="Amount"
-                        >
-                          3964 USD
-                        </td>
-                      </tr>
+                              data-label="Amount"
+                            >
+                              {transaction.amount} USD
+                            </td>
+                          </tr>
+                        ))}
                     </tbody>
                   </table>
                 </div>
@@ -222,7 +215,9 @@ const Home = () => {
           </div>
           <div className="flex w-full mt-6 bg-primary-3 px-4 py-5 rounded-[10px]">
             <h5 className="text-base font-bold text-primary-1">
-              Total: 14,065 USD
+              Total:{' '}
+              {report.reduce((prev, curr) => Math.floor(prev + curr.amount), 0)}{' '}
+              USD
             </h5>
           </div>
           <Footer />

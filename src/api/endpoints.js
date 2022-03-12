@@ -15,7 +15,7 @@ export const getGateways = () => {
   return api.get(url);
 };
 
-export const report = ({ from, to, projectId, gatewayId }) => {
+export const getReport = ({ from, to, projectId, gatewayId }) => {
   const url = '/report';
   return api.post(url, { from, to, projectId, gatewayId });
 };

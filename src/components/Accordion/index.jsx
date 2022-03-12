@@ -21,7 +21,7 @@ const Accordion = ({ title, price, children }) => {
       >
         <h6 className="text-base font-bold text-primary-1">{title}</h6>
         <h6 className="text-base font-bold text-primary-1">
-          Total: 10,065 USD
+          Total: {price} USD
         </h6>
       </button>
       <div
