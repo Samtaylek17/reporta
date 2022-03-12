@@ -9,7 +9,7 @@ const Accordion = ({ title, price, children }) => {
   };
 
   return (
-    <div className="bg-white rounded-md w-full">
+    <div className="bg-white rounded-md w-full my-4">
       <button
         type="button"
         onClick={toggleState}
@@ -19,7 +19,7 @@ const Accordion = ({ title, price, children }) => {
             : 'w-full gap-x-4 flex justify-between px-4 bg-lemon rounded-t-md rounded-b-md py-4'
         }
       >
-        <h6 className="text-base font-bold text-primary-1">Project 1</h6>
+        <h6 className="text-base font-bold text-primary-1">{title}</h6>
         <h6 className="text-base font-bold text-primary-1">
           Total: 10,065 USD
         </h6>

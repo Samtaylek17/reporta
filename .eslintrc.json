@@ -19,6 +19,7 @@
       2,
       { "namedComponents": "arrow-function" }
     ],
-    "no-unused-vars": "warn"
+    "no-unused-vars": "warn",
+    "no-param-reassign": "off"
   }
 }

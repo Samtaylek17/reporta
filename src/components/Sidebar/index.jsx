@@ -6,7 +6,7 @@ import { ReactComponent as Power } from '../../assets/icons/power.svg';
 
 const Sidebar = () => (
   // min-w-[90px]
-  <div className="flex-none w-0 min-h-[90vh] overflow-y-scroll">
+  <div className="flex-none min-w-[90px] w-0 min-h-[90vh] overflow-y-scroll">
     <div className="flex flex-col gap-y-6 items-center mt-12">
       <Histogram />
       <Menu />
