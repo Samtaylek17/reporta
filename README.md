@@ -19,8 +19,8 @@
 <details>
 <summary>Here are samples.</summary>
 
-![report](./images/report.png)
-![chart](./images/chart.png)
+![report](./src/assets/images/report.png)
+![chart](./src/assets/images/chart.png)
 
 </details>
 
