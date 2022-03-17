@@ -14,7 +14,9 @@ const DonutChart = ({ data }) => {
 
   return (
     <div className="container">
-      <div className="graph" ref={ref} />
+      <div className="flex h-full items-center w-full justify-items-center">
+        <div className="graph flex w-full" ref={ref} />
+      </div>
     </div>
   );
 };
