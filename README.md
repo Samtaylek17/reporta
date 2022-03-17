@@ -1,70 +1,54 @@
-# Getting Started with Create React App
+# Reporta
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Finance Report generator
 
-## Available Scripts
+![Logo](./src/assets/images/reporta.png)
 
-In the project directory, you can run:
+> **Reporta** allows you to do the following
 
-### `yarn start`
+- [x] Fetch All Projects Report.
+- [x] Fetch All Gateways Report.
+- [x] View reports of single project.
+- [x] View reports of single gateway.
+- [x] Generate report in a simple Doughnut Chart.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+**Note**: **I have a deployed version of the aplication found [here on Heroku](http://reporta.herokuapp.com)**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Images
 
-### `yarn test`
+<details>
+<summary>Here are samples.</summary>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![report](./images/report.png)
+![chart](./images/chart.png)
 
-### `yarn build`
+</details>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Built With
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- [React](https://reactjs.org)
+- [Redux](https://redux-toolkit.js.org/)
+- [d3](https://github.com/d3/d3)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Getting Started
 
-### `yarn eject`
+Foremost, you have to clone this repository and install all the dependencies with the following commands.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+git clone https://github.com/Samtaylek17/mvpmatch.git
+cd Reporta
+npm install
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Rename the `.env.example` to `.env` and customize it to your local machines specifications.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Run the following command to start the project
 
-## Learn More
+```bash
+  npm start
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Authors
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**[Temitayo Ogunsusi](https://github.com/samtaylek17/)**

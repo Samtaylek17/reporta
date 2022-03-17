@@ -2,7 +2,7 @@ import * as d3 from 'd3';
 
 const drawChart = (element, data) => {
   const colors = ['#FFC107', '#A259FF', '#6497B1', '#F24E1E'];
-  const boxSize = 500;
+  const boxSize = 270;
 
   d3.select(element).select('svg').remove(); // Remove the old svg
   // Create new svg
@@ -10,8 +10,8 @@ const drawChart = (element, data) => {
     .select(element)
     .append('svg')
     .attr('preserveAspectRatio', 'xMidYMid meet')
-    .attr('height', '100%')
-    .attr('width', '100%')
+    .attr('height', '50%')
+    .attr('width', '50%')
     .attr('viewBox', `0 0 ${boxSize} ${boxSize}`)
     .append('g')
     .attr('transform', `translate(${boxSize / 2}, ${boxSize / 2})`);
