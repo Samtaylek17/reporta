@@ -4,7 +4,7 @@ import { fetchUsers } from '../../../slices/userSlice';
 import { ReactComponent as Logo } from '../../../assets/icons/logo.svg';
 import { ReactComponent as Hamburger } from '../../../assets/icons/hamburger.svg';
 
-const Navbar = () => {
+const Navbar = ({ onClick }) => {
   const { userList } = useSelector((state) => state.users);
   const dispatch = useDispatch();
 
@@ -17,7 +17,7 @@ const Navbar = () => {
       <div className="flex w-full shadow-sm py-4 px-8 justify-between">
         <div className="flex items-center gap-8">
           <Logo />
-          <Hamburger className="h-7 w-7" />
+          <Hamburger className="h-7 w-7" onClick={onClick} />
         </div>
         <div className="flex items-center gap-x-4">
           <div className="inline-flex bg-accent-2 items-center px-3 py-1 rounded-md">

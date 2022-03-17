@@ -4,9 +4,13 @@ import { ReactComponent as Desktop } from '../../../assets/icons/desktop.svg';
 import { ReactComponent as PieChart } from '../../../assets/icons/pie-chart.svg';
 import { ReactComponent as Power } from '../../../assets/icons/power.svg';
 
-const Sidebar = () => (
+const Sidebar = ({ toggle }) => (
   // min-w-[90px]
-  <div className="flex-none min-w-[90px] w-0 min-h-[90vh] overflow-y-scroll">
+  <div
+    className={`${
+      toggle ? 'w-0 sm:min-w-[90px]' : 'min-w-[90px]'
+    } flex-none transition-all min-h-[90vh] overflow-y-scroll`}
+  >
     <div className="flex flex-col gap-y-6 items-center mt-12">
       <Histogram />
       <Menu />

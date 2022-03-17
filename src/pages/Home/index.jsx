@@ -20,12 +20,17 @@ const Home = () => {
   const { gatewayList } = useSelector((state) => state.gateways);
   const { report } = useSelector((state) => state.reports);
 
+  const [sidebarOpen, setSidebarOpen] = useState(true);
   const [projectId, setProjectId] = useState('');
   const [gatewayId, setGatewayId] = useState('');
   const [projectName, setProjectName] = useState('');
   const [gatewayName, setGatewayName] = useState('');
   const [dateFrom, setDateFrom] = useState('');
   const [dateTo, setDateTo] = useState('');
+
+  const onSidebarToggle = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
 
   const reportData = useMemo(
     () =>
@@ -123,9 +128,9 @@ const Home = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar onClick={onSidebarToggle} />
       <div className="flex">
-        <Sidebar />
+        <Sidebar toggle={sidebarOpen} />
         <div className="grow overflow-y-scroll sm:pr-20 px-8 mt-6">
           <div className="flex w-full flex-col justify-between mb-4 sm:flex-row">
             <div className="flex flex-1 flex-col">
@@ -167,14 +172,14 @@ const Home = () => {
                 <DatePicker
                   onChange={(date) => setDateFrom(date)}
                   dropdownClassName="bg-accent-1 text-white"
-                  className="bg-accent-1 border-0 text-white placeholder-white rounded-[5px]"
+                  className="bg-accent-1 border-0 text-white placeholder-white rounded-[5px] w-full"
                 />
               </div>
               <div className="w-full sm:w-32">
                 <DatePicker
                   onChange={(date) => setDateTo(date)}
                   dropdownClassName="bg-accent-1 text-white"
-                  className="bg-accent-1 border-0 text-white placeholder-white rounded-[5px]"
+                  className="bg-accent-1 border-0 text-white placeholder-white rounded-[5px] w-full"
                 />
               </div>
               <div className="w-full sm:w-32">
