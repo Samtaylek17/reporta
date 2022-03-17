@@ -19,7 +19,10 @@
       2,
       { "namedComponents": "arrow-function" }
     ],
+    "react/prop-types": "off",
     "no-unused-vars": "warn",
-    "no-param-reassign": "off"
+    "no-param-reassign": "off",
+    "react/jsx-props-no-spreading": "off",
+    "no-nested-ternary": "off"
   }
 }
