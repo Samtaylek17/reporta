@@ -41,8 +41,6 @@ npm install
 
 ```
 
-Rename the `.env.example` to `.env` and customize it to your local machines specifications.
-
 Run the following command to start the project
 
 ```bash
