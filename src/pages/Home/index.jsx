@@ -11,9 +11,9 @@ import Empty from '../../components/EmptyState';
 import Footer from '../../components/common/Footer';
 import Accordion from '../../components/Accordion';
 import DonutChart from '../../components/Chart';
-import ProjectsTable from '../../components/ProjectsTable';
 import AllProjectAllGateway from '../Project';
 import SingleProjectAllGateway from '../Gateway';
+import SingleProjectSingleGateway from '../SingleData';
 
 const { Option } = Select;
 
@@ -215,6 +215,13 @@ const Home = () => {
 
               {projectName === '' && gatewayName === '' && (
                 <AllProjectAllGateway report={report} />
+              )}
+
+              {projectName !== '' && gatewayName !== '' && (
+                <SingleProjectSingleGateway
+                  report={report}
+                  gateway={gatewayId}
+                />
               )}
             </div>
             {projectName !== '' && gatewayName === '' && (
