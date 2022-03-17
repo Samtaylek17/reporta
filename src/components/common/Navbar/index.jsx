@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUsers } from '../../../slices/userSlice';
 import { ReactComponent as Logo } from '../../../assets/icons/logo.svg';
@@ -7,12 +7,6 @@ import { ReactComponent as Hamburger } from '../../../assets/icons/hamburger.svg
 const Navbar = () => {
   const { userList } = useSelector((state) => state.users);
   const dispatch = useDispatch();
-
-  const [initials] = useState(
-    `${userList[0]?.firstName.split('')[0]}${
-      userList[0]?.lastName.split('')[0]
-    }`
-  );
 
   useEffect(() => {
     dispatch(fetchUsers());
