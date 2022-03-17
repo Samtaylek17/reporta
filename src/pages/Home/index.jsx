@@ -1,6 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Select, DatePicker } from 'antd';
-import _ from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProjects } from '../../slices/projectSlice';
 import { fetchGateways } from '../../slices/gatewaySlice';
@@ -9,7 +8,6 @@ import Navbar from '../../components/common/Navbar';
 import Sidebar from '../../components/common/Sidebar';
 import Empty from '../../components/EmptyState';
 import Footer from '../../components/common/Footer';
-import Accordion from '../../components/Accordion';
 import DonutChart from '../../components/Chart';
 import AllProjectAllGateway from '../Project';
 import SingleProjectAllGateway from '../Gateway';
@@ -191,57 +189,68 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="flex">
-            <div className="w-full min-h-[65vh] bg-primary-3 rounded-[10px] p-4">
-              <div className="flex gap-x-2 mb-8">
-                <h6 className="font-bold text-base leading-[19px] text-primary-1">
-                  {projectName || 'All Projects'}
-                </h6>
-                <span className="font-bold text-base leading-[19px] text-primary-1">
-                  |
-                </span>
-                <h6 className="font-bold text-base leading-[19px] text-primary-1">
-                  {gatewayName || 'All gateways'}
-                </h6>
-              </div>
-              {/* <Empty /> */}
-              {projectName === '' && gatewayName !== '' && (
-                <AllProjectAllGateway report={report} />
-              )}
-
-              {gatewayName === '' && projectName !== '' && (
-                <SingleProjectAllGateway report={report} />
-              )}
-
-              {projectName === '' && gatewayName === '' && (
-                <AllProjectAllGateway report={report} />
-              )}
-
-              {projectName !== '' && gatewayName !== '' && (
-                <SingleProjectSingleGateway
-                  report={report}
-                  gateway={gatewayId}
-                />
-              )}
+          {Object.entries(report).length === 0 ? (
+            <div className="flex justify-center min-h-[65vh] items-center">
+              <Empty />
             </div>
-            {projectName !== '' && gatewayName === '' && (
-              <div className="flex w-full justify-center">
-                <DonutChart data={chartData} />
+          ) : (
+            <>
+              <div className="flex">
+                <div className="w-full min-h-[65vh] bg-primary-3 rounded-[10px] p-4">
+                  <div className="flex gap-x-2 mb-8">
+                    <h6 className="font-bold text-base leading-[19px] text-primary-1">
+                      {projectName || 'All Projects'}
+                    </h6>
+                    <span className="font-bold text-base leading-[19px] text-primary-1">
+                      |
+                    </span>
+                    <h6 className="font-bold text-base leading-[19px] text-primary-1">
+                      {gatewayName || 'All gateways'}
+                    </h6>
+                  </div>
+                  {projectName === '' && gatewayName !== '' && (
+                    <AllProjectAllGateway report={report} />
+                  )}
+
+                  {gatewayName === '' && projectName !== '' && (
+                    <SingleProjectAllGateway report={report} />
+                  )}
+
+                  {projectName === '' && gatewayName === '' && (
+                    <AllProjectAllGateway report={report} />
+                  )}
+
+                  {projectName !== '' && gatewayName !== '' && (
+                    <SingleProjectSingleGateway
+                      report={report}
+                      gateway={gatewayId}
+                    />
+                  )}
+                </div>
+                {projectName !== '' && gatewayName === '' && (
+                  <div className="flex w-full justify-center">
+                    <DonutChart data={chartData} />
+                  </div>
+                )}
+                {projectName === '' && gatewayName !== '' && (
+                  <div className="flex w-full justify-center">
+                    <DonutChart data={chartDataProject} />
+                  </div>
+                )}
               </div>
-            )}
-            {projectName === '' && gatewayName !== '' && (
-              <div className="flex w-full justify-center">
-                <DonutChart data={chartDataProject} />
+              <div className="flex w-full mt-6 bg-primary-3 px-4 py-5 rounded-[10px]">
+                <h5 className="text-base font-bold text-primary-1">
+                  Total:{' '}
+                  {report.reduce(
+                    (prev, curr) => Math.floor(prev + curr.amount),
+                    0
+                  )}{' '}
+                  USD
+                </h5>
               </div>
-            )}
-          </div>
-          <div className="flex w-full mt-6 bg-primary-3 px-4 py-5 rounded-[10px]">
-            <h5 className="text-base font-bold text-primary-1">
-              Total:{' '}
-              {report.reduce((prev, curr) => Math.floor(prev + curr.amount), 0)}{' '}
-              USD
-            </h5>
-          </div>
+            </>
+          )}
+
           <Footer />
         </div>
       </div>
