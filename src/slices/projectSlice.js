@@ -25,7 +25,7 @@ const projects = createSlice({
     getProjectsSuccess: (state, { payload }) => {
       state.projectList = payload;
       state.isLoading = false;
-      state.error = false;
+      state.error = null;
     },
     getProjectsFailure: loadingFailed,
   },

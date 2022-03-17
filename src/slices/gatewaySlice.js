@@ -25,7 +25,7 @@ const gateways = createSlice({
     getGatewaysSuccess: (state, { payload }) => {
       state.gatewayList = payload;
       state.isLoading = false;
-      state.error = false;
+      state.error = null;
     },
     getGatewaysFailure: loadingFailed,
   },

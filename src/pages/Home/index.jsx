@@ -181,7 +181,7 @@ const Home = () => {
                 <button
                   type="button"
                   onClick={handleSubmit}
-                  className="bg-primary-2 h-8 w-[118px] text-white rounded-md cursor-pointer"
+                  className="bg-primary-2 h-8 w-full text-white rounded-md cursor-pointer"
                 >
                   Generate report
                 </button>
@@ -196,7 +196,7 @@ const Home = () => {
           ) : (
             <>
               <div className="flex h-[58vh]">
-                <div className="w-full bg-primary-3 rounded-[10px] p-4">
+                <div className="w-full overflow-y-scroll bg-primary-3 rounded-[10px] p-4">
                   <div className="flex gap-x-2 mb-8">
                     <h6 className="font-bold text-base leading-[19px] text-primary-1">
                       {projectName || 'All Projects'}
