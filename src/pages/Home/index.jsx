@@ -42,6 +42,11 @@ const Home = () => {
     [report]
   );
 
+  const totalAmount = report.reduce(
+    (prev, curr) => Math.floor(prev + curr.amount),
+    0
+  );
+
   const projectData = useMemo(
     () =>
       projectList.map((project) =>
@@ -56,7 +61,7 @@ const Home = () => {
     const amountArr = [];
     for (let i = 0; i < amount.length; i += 1) {
       const o = {};
-      o.value = amount[i];
+      o.value = Number((amount[i] / totalAmount) * 100).toPrecision(4);
       amountArr.push(o);
     }
     return amountArr;
